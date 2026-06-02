@@ -57,6 +57,7 @@ NEW FEATURES IN BRIEF:
 - Lag-switch mitigation: detects and freezes local simulation when network goes dark
 - Vote-to-reject system for in-progress multiplayer games (see NEW FEATURES IN DETAIL)
 - add "nottoair" flag for weapons (see NEW FEATURES IN DETAIL)
+- add "nottounderwater" flag for weapons (see NEW FEATURES IN DETAIL)
 - add "surfacefire" flag for weapons (see NEW FEATURES IN DETAIL)
 - +autoteam bugfix for occasional players stranded by themselves
 - Diagnostic logging for crashes 004cbed5 and 0049cf19
@@ -375,7 +376,7 @@ NEW FEATURES IN DETAIL:
   - Reload time: up to 16 levels or the number of VeterancyThresholds, whichever is lower
   - Accuracy buff: no limit
 
-- Weapon TDF flags: nottoair and surfacefire
+- Weapon TDF flags: nottoair, nottounderwater and surfacefire
 
   Two new optional keys for weapon definition files (weapons/*.tdf) give mod developers
   finer control over which unit types a weapon can target.
@@ -391,6 +392,22 @@ NEW FEATURES IN DETAIL:
       {
       ...
       nottoair=1;
+      }
+
+  nottounderwater=1
+    The weapon cannot target or fire at fully-submerged units (a target whose top is at or below
+    sea level, such as a dived submarine).  Ordinary weapons already cannot reach underwater
+    targets; this flag is meant for waterweapon=1 weapons, letting them hit surface ships while
+    leaving submerged units to torpedoes and depth charges.  It is the underwater mirror of
+    nottoair.
+
+    Example:
+
+      [NAVAL_GUN]
+      {
+      ...
+      waterweapon=1;
+      nottounderwater=1;
       }
 
   surfacefire=1
